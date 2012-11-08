@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JLabel;
-
 import br.ufrj.tp.model.User;
 import br.ufrj.tp.view.ServerFrame;
 

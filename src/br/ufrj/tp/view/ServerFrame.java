@@ -15,6 +15,10 @@ import javax.swing.border.LineBorder;
 public class ServerFrame extends JFrame 
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JList onlineUsersJList = null;
 	private JTextArea chatArea = null;

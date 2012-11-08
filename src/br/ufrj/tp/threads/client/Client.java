@@ -2,6 +2,7 @@ package br.ufrj.tp.threads.client;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -88,7 +89,11 @@ public class Client extends Thread {
 			
 			out.close();
 			stablishConnection.close();
-		} 
+		}
+		catch (ConnectException e) 
+		{
+			e.printStackTrace();
+		}
 		catch (UnknownHostException e)
 		{
 			e.printStackTrace();
@@ -99,6 +104,7 @@ public class Client extends Thread {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void sendMessage(Message message, User destination)	 
 	{
 

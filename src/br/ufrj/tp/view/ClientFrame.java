@@ -16,6 +16,10 @@ import br.ufrj.tp.utils.Constants;
 public class ClientFrame extends JFrame
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane = null;
 	private JButton btnSend = null;
 	
