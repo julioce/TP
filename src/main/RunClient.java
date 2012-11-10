@@ -1,11 +1,11 @@
 package main;
 
-import threads.client.Client;
 import views.ClientWindow;
 import views.ClientNicknamePopup;
+import models.Client;
 import models.Message;
 import models.User;
-import controllers.ClientWindowController;
+import controllers.ClientController;
 
 public class RunClient
 {
@@ -18,7 +18,7 @@ public class RunClient
 		ClientWindow clientFrame = new ClientWindow();
 		clientFrame.setUp(username);
 
-		ClientWindowController windowController = new ClientWindowController(clientFrame, username);
+		ClientController windowController = new ClientController(clientFrame, username);
 		clientFrame.configureListeners(windowController);
 		clientFrame.setupWindowListener(windowController);
 		

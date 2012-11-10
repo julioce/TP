@@ -5,21 +5,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import threads.client.Client;
 import views.ClientWindow;
 
 import main.Constants;
+import models.Client;
 import models.Message;
 import models.User;
 
 
-public class ClientWindowController implements ActionListener, WindowListener
+public class ClientController implements ActionListener, WindowListener
 {
 	
 	private ClientWindow clientFrame = null;
 	private String username = null;
 	
-	public ClientWindowController(ClientWindow paramClientFrame, String paramUsername) 
+	public ClientController(ClientWindow paramClientFrame, String paramUsername) 
 	{
 		clientFrame = paramClientFrame;
 		username = paramUsername;

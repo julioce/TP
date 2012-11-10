@@ -14,12 +14,8 @@ import javax.swing.border.EmptyBorder;
 import main.Constants;
 
 
-public class ClientWindow extends JFrame
-{
+public class ClientWindow extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane = null;
 	private JButton btnSend = null;
@@ -27,8 +23,7 @@ public class ClientWindow extends JFrame
 	private JTextArea messageArea = null;
 	private JTextArea chatArea = null;
 	
-	public ClientWindow()
-	{
+	public ClientWindow() {
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,41 +58,35 @@ public class ClientWindow extends JFrame
 		
 	}
 
-	public void setUp(String title)
-	{
+	public void setUp(String title) {
 		setTitle("Window chat - " + title);
 		setBounds(100, 100, 550, 550);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 	
-	public void configureListeners(ActionListener listener)
-	{
+	public void configureListeners(ActionListener listener) {
 		btnSend.addActionListener(listener);
 	}
 
-	public void setupWindowListener(WindowListener listener)
-	{
+	public void setupWindowListener(WindowListener listener) {
 		this.addWindowListener(listener);
 	}
 	
-	public JTextArea getChatArea() 
-	{
+	public JTextArea getChatArea() {
 		return chatArea;
 	}
 
-	public void setChatArea(JTextArea paramChatArea) 
-	{
+	public void setChatArea(JTextArea paramChatArea) {
 		chatArea = paramChatArea;
 	}
 
-	public JTextArea getMessageArea()
-	{
+	public JTextArea getMessageArea() {
 		return messageArea;
 	}
 
-	public void setMessageArea(JTextArea paramMessageArea)
-	{
+	public void setMessageArea(JTextArea paramMessageArea) {
 		messageArea = paramMessageArea;
 	}
+	
 }

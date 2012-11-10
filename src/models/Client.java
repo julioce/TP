@@ -1,4 +1,4 @@
-package threads.client;
+package models;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -8,77 +8,62 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import main.Constants;
-import models.Message;
-import models.User;
 
-import org.apache.log4j.Logger;
-
-import controllers.ClientWindowController;
+import controllers.ClientController;
 
 
 public class Client extends Thread {
 
-	private Logger logger = Logger.getLogger(Client.class);
-
-	private ClientWindowController clientWindowController = null;
+	private ClientController clientWindowController = null;
 	private String username = null;
 	private int clientPort;
 	
 	private ServerSocket serverSocket = null;
 	private Socket communicationSocket = null;
 
-	public Client(ClientWindowController paramController, String paramUsername, int paramPort)
-	{
+	public Client(ClientController paramController, String paramUsername, int paramPort) {
 		username = paramUsername;
 		clientWindowController = paramController;
 		clientPort = paramPort;
 	}
 
 	@Override
-	public void run()
-	{
+	public void run() {
 
-		logger.debug("Client running!");
+		System.out.println("Client running!");
 		
 		try{
 			serverSocket = new ServerSocket(clientPort);  
-			logger.debug("Server socket started");
+			System.out.println("Server socket started");
 			
-			while(true)
-			{
-				logger.debug("Waiting for accept");
+			while(true) {
+				System.out.println("Waiting for accept");
 				communicationSocket = serverSocket.accept();
-				logger.debug("Accepted.");
+				System.out.println("Accepted.");
 				ClientMessageReceiver messageReceiver = new ClientMessageReceiver(communicationSocket, this);
 				messageReceiver.start();
-				
 			}
 			
 		}
-		catch(IOException e)
-		{  
+		catch(IOException e) {  
 			System.err.println("Exception while accepting the connection to a client");
 			e.printStackTrace();
 		}
-		finally
-		{
-			try
-			{
+		finally{
+			try{
 				communicationSocket.close();
 				serverSocket.close();
 				
-				logger.debug("Client's sockets closed correctly.");
+				System.out.println("Client's sockets closed correctly.");
 			}
-			catch (IOException e)
-			{
+			catch (IOException e){
 				System.err.println("Exception trying to close the sockets");
 				e.printStackTrace();
 			}
 		}
 	}
 	
-	public static void sendMessageToServer(Message message)
-	{
+	public static void sendMessageToServer(Message message) {
 		Socket stablishConnection = null;
 		ObjectOutputStream out = null;
 
@@ -92,24 +77,19 @@ public class Client extends Thread {
 			out.close();
 			stablishConnection.close();
 		}
-		catch (ConnectException e) 
-		{
+		catch (ConnectException e) {
 			e.printStackTrace();
 		}
-		catch (UnknownHostException e)
-		{
+		catch (UnknownHostException e) {
 			e.printStackTrace();
 		} 
-		catch (IOException e) 
-		{
+		catch (IOException e)  {
 			e.printStackTrace();
 		}
 	}
 
 	@SuppressWarnings("unused")
-	private void sendMessage(Message message, User destination)	 
-	{
-
+	private void sendMessage(Message message, User destination) {
 		Socket stablishConnection = null;
 		ObjectOutputStream out = null;
 
@@ -123,35 +103,29 @@ public class Client extends Thread {
 			out.close();
 			stablishConnection.close();
 		}
-		catch (UnknownHostException e) 
-		{
+		catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		catch (IOException e) 
-		{
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
 	
-	public ClientWindowController getWindowController()
-	{
+	public ClientController getWindowController() {
 		return clientWindowController;
 	}
 
-	public void setClientWindowController(ClientWindowController paramWindowController) 
-	{
+	public void setClientWindowController(ClientController paramWindowController) {
 		clientWindowController = paramWindowController;
 	}
 
-	public String getUsername() 
-	{
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUsername(String paramUsername) 
-	{
+	public void setUsername(String paramUsername) {
 		username = paramUsername;
 	}
 	

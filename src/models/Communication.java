@@ -1,33 +1,24 @@
-package threads.server;
+package models;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
 import main.Constants;
-import models.Message;
-import models.User;
-
-import org.apache.log4j.Logger;
-
 
 public class Communication extends Thread {
-
-	private Logger logger = Logger.getLogger(Communication.class);
 
 	private Server server = null;
 	private Socket communicationSocket = null;
 	private Message message = null;
 
-	public Communication(Socket paramCommunicationSocket, Server paramServer) 
-	{
+	public Communication(Socket paramCommunicationSocket, Server paramServer) {
 		communicationSocket = paramCommunicationSocket;
 		server = paramServer;
 	}
 
 	@Override
-	public void run() 
-	{
+	public void run() {
 
 		ObjectInputStream in;
 
@@ -36,36 +27,31 @@ public class Communication extends Thread {
 
 			message = (Message) in.readObject();
 
-			logger.debug("Message received: " + message.getMessageText());
-			logger.debug("From: " + message.getSender().getUsername());
+			System.out.println("Message received: " + message.getMessageText());
+			System.out.println("From: " + message.getSender().getUsername());
 
 			boolean hasCommands = checkMessageForCommands(message);
 			
-			if(!hasCommands)
-			{
+			if(!hasCommands){
 				checkForSenderInServerList(message.getSender());
 				server.broadcastMessage(message);
 			}
 
 			communicationSocket.close();
 		} 
-		catch (IOException e)
-		{
-			logger.error("IOException caught when running a Connection");
+		catch (IOException e){
+			System.out.println("IOException caught when running a Connection");
 			e.printStackTrace();
 		} 
-		catch (ClassNotFoundException e)
-		{
-			logger.error("Couldn't read object in ObjectInputStream");
+		catch (ClassNotFoundException e){
+			System.out.println("Couldn't read object in ObjectInputStream");
 			e.printStackTrace();
 		}
 
 	}
 
-	private boolean checkMessageForCommands(Message paramMessage)
-	{
-		if(paramMessage.getMessageText().equals(Constants.EXIT))
-		{
+	private boolean checkMessageForCommands(Message paramMessage) {
+		if(paramMessage.getMessageText().equals(Constants.EXIT)){
 			removeUser(paramMessage.getSender());
 			return true;
 		}
@@ -73,22 +59,17 @@ public class Communication extends Thread {
 		return false;
 	}
 	
-	private void checkForSenderInServerList(User sender)
-	{
-		if(!server.getConnectedUsers().contains(sender))
-		{
-			logger.debug(sender + " was not in list. Adding.");
+	private void checkForSenderInServerList(User sender){
+		if(!server.getConnectedUsers().contains(sender)){
+			System.out.println(sender + " was not in list. Adding.");
 			server.getConnectedUsers().add(sender);
 			server.getWindowController().updateOnlineUsersList(server.getConnectedUsers());
 		}
 	}
 	
-	private void removeUser(User userToRemove)
-	{
-		for(User user : server.getConnectedUsers())
-		{
-			if(user.equals(userToRemove))
-			{
+	private void removeUser(User userToRemove){
+		for(User user : server.getConnectedUsers()){
+			if(user.equals(userToRemove)){
 				Message message = new Message(userToRemove, "Left the party...");
 				try {
 					server.broadcastMessage(message);
@@ -101,6 +82,6 @@ public class Communication extends Thread {
 			}
 		}
 		
-		logger.debug("User not found, therefore not removed: " + userToRemove);
+		System.out.println("User not found, therefore not removed: " + userToRemove);
 	}
 }

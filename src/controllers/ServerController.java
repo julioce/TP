@@ -9,12 +9,12 @@ import views.ServerWindow;
 import models.User;
 
 
-public class ServerWindowController implements ActionListener
+public class ServerController implements ActionListener
 {
 
 	private ServerWindow serverFrame = null;
 	
-	public ServerWindowController(ServerWindow paramServerFrame) 
+	public ServerController(ServerWindow paramServerFrame) 
 	{
 		serverFrame = paramServerFrame;
 	}

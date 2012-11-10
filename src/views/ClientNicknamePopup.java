@@ -2,32 +2,24 @@ package views;
 
 import javax.swing.JOptionPane;
 
-public class ClientNicknamePopup
-{
+public class ClientNicknamePopup {
 	
 	private String nickname = "";
 	
-	public String promptForNick()
-	{
-		do
-		{
+	public String promptForNick(){
+		while(nickname.equals("")){
 			nickname = JOptionPane.showInputDialog("Insert your nickname");
-		} while(nickname.equals(""));
+		}
 		
-		return nickname;
-		
-	}
-
-	public String getNickname() 
-	{
 		return nickname;
 	}
 
-	public void setNickname(String paramNickname) 
-	{
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String paramNickname) {
 		nickname = paramNickname;
 	}
-	
-	
 
 }

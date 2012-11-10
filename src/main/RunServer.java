@@ -1,8 +1,8 @@
 package main;
 
-import threads.server.Server;
+import models.Server;
 import views.ServerWindow;
-import controllers.ServerWindowController;
+import controllers.ServerController;
 
 public class RunServer {
 
@@ -11,7 +11,7 @@ public class RunServer {
 		ServerWindow serverFrame = new ServerWindow();
 		serverFrame.setUp();
 
-		ServerWindowController windowController = new ServerWindowController(serverFrame);
+		ServerController windowController = new ServerController(serverFrame);
 		
 		Server server = new Server(windowController);
 		server.start();

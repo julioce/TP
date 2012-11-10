@@ -12,80 +12,84 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-public class ServerWindow extends JFrame 
-{
+public class ServerWindow extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private JPanel contentPanel;
 	private JList onlineUsersJList = null;
 	private JTextArea chatArea = null;
-
+	private JTextArea logArea = null;
 	
 	public ServerWindow() {
 		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPanel = new JPanel();
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPanel);
+		contentPanel.setLayout(null);
 		
 		onlineUsersJList = new JList();
-		onlineUsersJList.setBounds(375, 37, 149, 438);
+		onlineUsersJList.setBounds(375, 37, 149, 473);
 		onlineUsersJList.setBorder(new LineBorder(new Color(0, 0, 0)));
-		contentPane.add(onlineUsersJList);
+		contentPanel.add(onlineUsersJList);
 		
 		JLabel lblOnlineUsers = new JLabel("Online Users");
-		lblOnlineUsers.setBounds(416, 11, 108, 14);
-		contentPane.add(lblOnlineUsers);
+		lblOnlineUsers.setBounds(410, 11, 108, 14);
+		contentPanel.add(lblOnlineUsers);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 37, 344, 438);
-		contentPane.add(scrollPane);
+		scrollPane.setBounds(10, 37, 344, 238);
+		contentPanel.add(scrollPane);
+		
+		JScrollPane logPanel = new JScrollPane();
+		logPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		logPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		logPanel.setBounds(10, 280, 344, 233);
+		contentPanel.add(logPanel);
 		
 		chatArea = new JTextArea();
 		chatArea.setEditable(false);
 		scrollPane.setViewportView(chatArea);
 		
+		logArea = new JTextArea();
+		logArea.setEditable(false);
+		logPanel.setViewportView(logArea);
+		
 		JLabel lblChat = new JLabel("Chat");
 		lblChat.setBounds(10, 11, 60, 14);
-		contentPane.add(lblChat);
+		contentPanel.add(lblChat);
 	}
 	
-	public void setUp()
-	{
+	public void setUp(){
 		setTitle("Server Chat");
 		setBounds(100, 100, 550, 550);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
 
-	public JList getOnlineUsersJList() 
-	{
+	public JList getOnlineUsersJList() {
 		return onlineUsersJList;
 	}
 
-	public void setOnlineUsersJList(JList paramOnlineUsersJList)
-	{
+	public void setOnlineUsersJList(JList paramOnlineUsersJList){
 		onlineUsersJList = paramOnlineUsersJList;
 	}
 
-	public JTextArea getChatArea() 
-	{
+	public JTextArea getChatArea() {
 		return chatArea;
 	}
 
-	public void setChatArea(JTextArea paramChatArea) 
-	{
-		this.chatArea = paramChatArea;
+	public void setChatArea(JTextArea chatArea) {
+		this.chatArea = chatArea;
 	}
 	
-	
-	
-	
-	
+	public JTextArea getLogArea() {
+		return logArea;
+	}
+
+	public void setLogArea(JTextArea logArea) {
+		this.logArea = logArea;
+	}
 	
 }

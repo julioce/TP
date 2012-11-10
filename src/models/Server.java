@@ -1,4 +1,4 @@
-package threads.server;
+package models;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -8,41 +8,32 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import main.Constants;
-import models.Message;
-import models.User;
 
-import org.apache.log4j.Logger;
-
-import controllers.ServerWindowController;
-
+import controllers.ServerController;
 
 public class Server extends Thread {
-
-	private Logger logger = Logger.getLogger(Server.class);
 	
-	private ServerWindowController windowController = null;
+	private ServerController windowController = null;
 	private ServerSocket serverSocket = null;   
 	private Socket communicationSocket = null;  
 	
 	private ArrayList<User> connectedUsers = new ArrayList<User>();
 	
-	public Server(ServerWindowController paramController)
-	{
+	public Server(ServerController paramController){
 		windowController = paramController;
 	}
 	
 	@Override
 	public void run() {
 
-		logger.debug("Server running!");
+		System.out.println("Server running!");
 		
 		try{
 			serverSocket = new ServerSocket(Constants.SERVER_PORT);  
-			logger.debug("Server socket opened!");
+			System.out.println("Server socket opened!");
 			
-			while(true)
-			{
-				logger.debug("Waiting for client to connect...");
+			while(true){
+				System.out.println("Waiting for client to connect...");
 				communicationSocket = serverSocket.accept();
 				Communication conn = new Communication(communicationSocket, this);
 				conn.start();
@@ -50,51 +41,43 @@ public class Server extends Thread {
 			}
 			
 		}
-		catch(BindException e)
-		{
+		catch(BindException e){
 			closeSockets();
 			System.exit(1);
 		}
-		catch(IOException e)
-		{  
-			logger.error("Exception while accepting the connection to a client");
+		catch(IOException e){
+			System.out.println("Exception while accepting the connection to a client");
 			e.printStackTrace();
 		}
-		finally
-		{
+		finally{
 			closeSockets();
 		}
 	}
 
 
-	private void closeSockets()
-	{
-		try
-		{
+	private void closeSockets(){
+		try{
 			communicationSocket.close();
 			serverSocket.close();
 		}
-		catch (IOException e)
-		{
-			logger.error("Exception trying to close the sockets");
+		catch (IOException e){
+			System.out.println("Exception trying to close the sockets");
 			e.printStackTrace();
 		}
 	}
 	
-	public void broadcastMessage(Message paramMessage) throws IOException
-	{
-		logger.debug("Message to broadcast: " + paramMessage.getMessageText());
-		logger.debug("From IP: " + paramMessage.getSender().getIpHost());
+	public void broadcastMessage(Message paramMessage) throws IOException{
+		System.out.println("Message to broadcast: " + paramMessage.getMessageText());
+		System.out.println("From IP: " + paramMessage.getSender().getIpHost());
 
-		logger.debug("Retrieving connected users...");
-		logger.debug(connectedUsers);
+		System.out.println("Retrieving connected users...");
+		System.out.println(connectedUsers);
 
-		for (User user : connectedUsers) 
-		{
-			logger.debug("For user: " + user.getUsername());
+		for (User user : connectedUsers) {
+			System.out.println("For user: " + user.getUsername());
 			sendMessage(paramMessage, user);
-			
 		}
+		
 		windowController.getServerFrame().getChatArea().append(paramMessage.toString() + "\n");
 	}
 
@@ -113,28 +96,20 @@ public class Server extends Thread {
 		stablishConnection.close();
 	}
 	
-	public ArrayList<User> getConnectedUsers() 
-	{
+	public ArrayList<User> getConnectedUsers() {
 		return connectedUsers;
 	}
 
-
-	public void setConnectedUsers(ArrayList<User> paramConnectedUsers) 
-	{
+	public void setConnectedUsers(ArrayList<User> paramConnectedUsers) {
 		connectedUsers = paramConnectedUsers;
 	}
 
-	public ServerWindowController getWindowController() 
-	{
+	public ServerController getWindowController() {
 		return windowController;
 	}
 
-	public void setWindowController(ServerWindowController paramWindowController) 
-	{
+	public void setWindowController(ServerController paramWindowController) {
 		windowController = paramWindowController;
 	}
-	
-	
-
 
 }
