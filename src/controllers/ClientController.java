@@ -24,7 +24,7 @@ public class ClientController implements ActionListener, WindowListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0){
-		if(arg0.getActionCommand().equals(Constants.SEND)){
+		if(arg0.getActionCommand().equals(Constants.SEND) && !clientFrame.getMessageArea().getText().isEmpty()){
 			String message = clientFrame.getMessageArea().getText();
 
 			User sender = new User("127.0.0.1", username);
@@ -37,11 +37,9 @@ public class ClientController implements ActionListener, WindowListener {
 		
 	}
 
-
 	public ClientWindow getClientFrame() {
 		return clientFrame;
 	}
-
 
 	public void setClientFrame(ClientWindow paramClientFrame) {
 		clientFrame = paramClientFrame;

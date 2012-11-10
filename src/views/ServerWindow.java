@@ -57,7 +57,7 @@ public class ServerWindow extends JFrame {
 		logPanel.setViewportView(logArea);
 		
 		JLabel labelChat = new JLabel("Messages");
-		labelChat.setBounds(10, 11, 60, 18);
+		labelChat.setBounds(10, 11, 120, 18);
 		contentPanel.add(labelChat);
 		
 		JLabel labelLog = new JLabel("Log");

@@ -8,7 +8,7 @@ public class ClientNicknamePopup {
 	
 	public String askNickname(){
 		while(nickname.isEmpty()){
-			nickname = JOptionPane.showInputDialog("Insert your nickname");
+			nickname = JOptionPane.showInputDialog("What's your nickname?");
 		}
 		
 		return nickname;

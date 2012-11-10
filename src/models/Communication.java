@@ -24,28 +24,20 @@ public class Communication extends Thread {
 
 			message = (Message) in.readObject();
 			
-			boolean hasCommands = checkMessageForCommands(message);
+			checkForSenderInServerList(message.getSender());
 			
-			if(!hasCommands){
-				checkForSenderInServerList(message.getSender());
-				server.broadcastMessage(message);
+			if(message.getMessageText().equals(Constants.EXIT)){
+				removeUser(message.getSender());
+				message.setMessageText("Left the party");
 			}
-
+			
+			server.broadcastMessage(message);
 			communicationSocket.close();
 		} 
 		catch (Exception e){
 			e.printStackTrace();
 		}
 
-	}
-
-	private boolean checkMessageForCommands(Message paramMessage) {
-		if(paramMessage.getMessageText().equals(Constants.EXIT)){
-			removeUser(paramMessage.getSender());
-			return true;
-		}
-		
-		return false;
 	}
 	
 	private void checkForSenderInServerList(User sender){
@@ -58,12 +50,6 @@ public class Communication extends Thread {
 	private void removeUser(User userToRemove){
 		for(User user : server.getConnectedUsers()){
 			if(user.equals(userToRemove)){
-				Message message = new Message(userToRemove, "Left the party...");
-				try {
-					server.broadcastMessage(message);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 				server.getConnectedUsers().remove(userToRemove);
 				server.getWindowController().updateOnlineUsersList(server.getConnectedUsers());
 				return;

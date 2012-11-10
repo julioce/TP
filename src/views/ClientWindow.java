@@ -13,44 +13,42 @@ import javax.swing.border.EmptyBorder;
 
 import models.Constants;
 
-
 public class ClientWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane = null;
-	private JButton btnSend = null;
+	private JPanel contentPanel = null;
+	private JButton sendButton = null;
 	
 	private JTextArea messageArea = null;
 	private JTextArea chatArea = null;
 	
 	public ClientWindow() {
 		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPanel = new JPanel();
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPanel);
+		contentPanel.setLayout(null);
 		
-		btnSend = new JButton("Send");
-		btnSend.setBounds(365, 352, 89, 57);
-		btnSend.setActionCommand(Constants.SEND);
-		contentPane.add(btnSend);
+		sendButton = new JButton("Send");
+		sendButton.setBounds(365, 352, 89, 57);
+		sendButton.setActionCommand(Constants.SEND);
+		contentPanel.add(sendButton);
 		
 		JScrollPane chatScroll = new JScrollPane();
 		chatScroll.setBounds(10, 11, 327, 288);
 		chatScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		chatScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		contentPane.add(chatScroll);
+		contentPanel.add(chatScroll);
 		
 		chatArea = new JTextArea();
 		chatArea.setEditable(false);
 		chatScroll.setViewportView(chatArea);
-	
 		
 		JScrollPane messageScroll = new JScrollPane();
 		messageScroll.setBounds(10, 351, 327, 58);
 		messageScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		messageScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		contentPane.add(messageScroll);
+		contentPanel.add(messageScroll);
 		
 		messageArea = new JTextArea();
 		messageArea.setLineWrap(true);
@@ -66,7 +64,7 @@ public class ClientWindow extends JFrame {
 	}
 	
 	public void configureListeners(ActionListener listener) {
-		btnSend.addActionListener(listener);
+		sendButton.addActionListener(listener);
 	}
 
 	public void setupWindowListener(WindowListener listener) {
@@ -77,16 +75,16 @@ public class ClientWindow extends JFrame {
 		return chatArea;
 	}
 
-	public void setChatArea(JTextArea paramChatArea) {
-		chatArea = paramChatArea;
+	public void setChatArea(JTextArea chatArea) {
+		this.chatArea = chatArea;
 	}
 
 	public JTextArea getMessageArea() {
 		return messageArea;
 	}
 
-	public void setMessageArea(JTextArea paramMessageArea) {
-		messageArea = paramMessageArea;
+	public void setMessageArea(JTextArea messageArea) {
+		this.messageArea = messageArea;
 	}
 	
 }
