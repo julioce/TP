@@ -8,40 +8,29 @@ import views.ServerWindow;
 
 import models.User;
 
-
-public class ServerController implements ActionListener
-{
+public class ServerController implements ActionListener{
 
 	private ServerWindow serverFrame = null;
 	
-	public ServerController(ServerWindow paramServerFrame) 
-	{
+	public ServerController(ServerWindow paramServerFrame) {
 		serverFrame = paramServerFrame;
 	}
 
-	public void updateOnlineUsersList(List<User> onlineUsers)
-	{
+	public void updateOnlineUsersList(List<User> onlineUsers) {
 		serverFrame.getOnlineUsersJList().setListData(onlineUsers.toArray());
 		serverFrame.getOnlineUsersJList().repaint();
 		serverFrame.repaint();
 	}
 
-	public ServerWindow getServerFrame()
-	{
+	public ServerWindow getServerFrame() {
 		return serverFrame;
 	}
 
-
-	public void setServerFrame(ServerWindow paramServerFrame) 
-	{
+	public void setServerFrame(ServerWindow paramServerFrame) {
 		serverFrame = paramServerFrame;
 	}
-	
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 
+	@Override
+	public void actionPerformed(ActionEvent arg0) { }
+	
 }

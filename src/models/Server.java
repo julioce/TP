@@ -7,17 +7,29 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import main.Constants;
+import views.ServerWindow;
+
 
 import controllers.ServerController;
 
 public class Server extends Thread {
 	
 	private ServerController windowController = null;
-	private ServerSocket serverSocket = null;   
-	private Socket communicationSocket = null;  
-	
+	private ServerSocket serverSocket = null;
+	private Socket communicationSocket = null;
 	private ArrayList<User> connectedUsers = new ArrayList<User>();
+	
+	public static void main(String[] args) {
+
+		ServerWindow serverFrame = new ServerWindow();
+		serverFrame.setUp();
+
+		ServerController windowController = new ServerController(serverFrame);
+		
+		Server server = new Server(windowController);
+		server.start();
+
+	}
 	
 	public Server(ServerController paramController){
 		windowController = paramController;
@@ -26,14 +38,14 @@ public class Server extends Thread {
 	@Override
 	public void run() {
 
-		System.out.println("Server running!");
+		recordLog("Server running!");
 		
 		try{
 			serverSocket = new ServerSocket(Constants.SERVER_PORT);  
-			System.out.println("Server socket opened!");
+			recordLog("Server socket opened!");
 			
 			while(true){
-				System.out.println("Waiting for client to connect...");
+				recordLog("Waiting for client to connect...");
 				communicationSocket = serverSocket.accept();
 				Communication conn = new Communication(communicationSocket, this);
 				conn.start();
@@ -46,7 +58,7 @@ public class Server extends Thread {
 			System.exit(1);
 		}
 		catch(IOException e){
-			System.out.println("Exception while accepting the connection to a client");
+			recordLog("Exception while accepting the connection to a client");
 			e.printStackTrace();
 		}
 		finally{
@@ -61,24 +73,23 @@ public class Server extends Thread {
 			serverSocket.close();
 		}
 		catch (IOException e){
-			System.out.println("Exception trying to close the sockets");
+			recordLog("Exception trying to close the sockets");
 			e.printStackTrace();
 		}
 	}
 	
 	public void broadcastMessage(Message paramMessage) throws IOException{
-		System.out.println("Message to broadcast: " + paramMessage.getMessageText());
-		System.out.println("From IP: " + paramMessage.getSender().getIpHost());
+		recordLog("Message to broadcast: " + paramMessage.getMessageText());
+		recordLog("From IP: " + paramMessage.getSender().getIpHost());
 
-		System.out.println("Retrieving connected users...");
-		System.out.println(connectedUsers);
+		recordLog("Retrieving connected users...");
 
 		for (User user : connectedUsers) {
-			System.out.println("For user: " + user.getUsername());
+			recordLog("For user: " + user.getUsername());
 			sendMessage(paramMessage, user);
 		}
 		
-		windowController.getServerFrame().getChatArea().append(paramMessage.toString() + "\n");
+		recordChat(paramMessage.toString());
 	}
 
 	private static void sendMessage(Message message, User destination) throws IOException {
@@ -94,6 +105,14 @@ public class Server extends Thread {
 
 		out.close();
 		stablishConnection.close();
+	}
+	
+	public void recordLog(String message){
+		windowController.getServerFrame().getLogArea().append(message + "\n");
+	}
+	
+	public void recordChat(String message){
+		windowController.getServerFrame().getChatArea().append(message + "\n");
 	}
 	
 	public ArrayList<User> getConnectedUsers() {

@@ -7,31 +7,25 @@ import java.awt.event.WindowListener;
 
 import views.ClientWindow;
 
-import main.Constants;
 import models.Client;
+import models.Constants;
 import models.Message;
 import models.User;
 
-
-public class ClientController implements ActionListener, WindowListener
-{
+public class ClientController implements ActionListener, WindowListener {
 	
 	private ClientWindow clientFrame = null;
 	private String username = null;
 	
-	public ClientController(ClientWindow paramClientFrame, String paramUsername) 
-	{
+	public ClientController(ClientWindow paramClientFrame, String paramUsername) {
 		clientFrame = paramClientFrame;
 		username = paramUsername;
-		
 	}
 
 
 	@Override
-	public void actionPerformed(ActionEvent arg0)
-	{
-		if(arg0.getActionCommand().equals(Constants.SEND))
-		{
+	public void actionPerformed(ActionEvent arg0){
+		if(arg0.getActionCommand().equals(Constants.SEND)){
 			String message = clientFrame.getMessageArea().getText();
 
 			User sender = new User("127.0.0.1", username);
@@ -45,31 +39,14 @@ public class ClientController implements ActionListener, WindowListener
 	}
 
 
-	public ClientWindow getClientFrame()
-	{
+	public ClientWindow getClientFrame() {
 		return clientFrame;
 	}
 
 
-	public void setClientFrame(ClientWindow paramClientFrame) 
-	{
+	public void setClientFrame(ClientWindow paramClientFrame) {
 		clientFrame = paramClientFrame;
 	}
-
-
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
@@ -79,38 +56,24 @@ public class ClientController implements ActionListener, WindowListener
 		Message m = new Message(sender, message);
 		
 		Client.sendMessageToServer(m);
-		
-		
 	}
-
 
 	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void windowActivated(WindowEvent arg0) { }
 
 	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void windowClosed(WindowEvent arg0) { }
 
 	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void windowDeactivated(WindowEvent arg0) { }
 
 	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeiconified(WindowEvent arg0) { }
+
+	@Override
+	public void windowIconified(WindowEvent arg0) { }
+
+	@Override
+	public void windowOpened(WindowEvent arg0) { }
 	
-	
-
 }

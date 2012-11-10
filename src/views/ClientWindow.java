@@ -11,7 +11,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
-import main.Constants;
+import models.Constants;
 
 
 public class ClientWindow extends JFrame {
@@ -60,7 +60,7 @@ public class ClientWindow extends JFrame {
 
 	public void setUp(String title) {
 		setTitle("Window chat - " + title);
-		setBounds(100, 100, 550, 550);
+		setBounds(100, 100, 480, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}

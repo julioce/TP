@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import main.Constants;
 
 public class Communication extends Thread {
 
@@ -26,10 +25,7 @@ public class Communication extends Thread {
 			in = new ObjectInputStream(communicationSocket.getInputStream());
 
 			message = (Message) in.readObject();
-
-			System.out.println("Message received: " + message.getMessageText());
-			System.out.println("From: " + message.getSender().getUsername());
-
+			
 			boolean hasCommands = checkMessageForCommands(message);
 			
 			if(!hasCommands){
@@ -40,11 +36,9 @@ public class Communication extends Thread {
 			communicationSocket.close();
 		} 
 		catch (IOException e){
-			System.out.println("IOException caught when running a Connection");
 			e.printStackTrace();
 		} 
 		catch (ClassNotFoundException e){
-			System.out.println("Couldn't read object in ObjectInputStream");
 			e.printStackTrace();
 		}
 
@@ -61,7 +55,6 @@ public class Communication extends Thread {
 	
 	private void checkForSenderInServerList(User sender){
 		if(!server.getConnectedUsers().contains(sender)){
-			System.out.println(sender + " was not in list. Adding.");
 			server.getConnectedUsers().add(sender);
 			server.getWindowController().updateOnlineUsersList(server.getConnectedUsers());
 		}
@@ -82,6 +75,6 @@ public class Communication extends Thread {
 			}
 		}
 		
-		System.out.println("User not found, therefore not removed: " + userToRemove);
+		//recordLog("User not found, therefore not removed: " + userToRemove);
 	}
 }

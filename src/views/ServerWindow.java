@@ -32,8 +32,8 @@ public class ServerWindow extends JFrame {
 		onlineUsersJList.setBorder(new LineBorder(new Color(0, 0, 0)));
 		contentPanel.add(onlineUsersJList);
 		
-		JLabel lblOnlineUsers = new JLabel("Online Users");
-		lblOnlineUsers.setBounds(410, 11, 108, 14);
+		JLabel lblOnlineUsers = new JLabel("Connected");
+		lblOnlineUsers.setBounds(410, 11, 108, 18);
 		contentPanel.add(lblOnlineUsers);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -45,7 +45,7 @@ public class ServerWindow extends JFrame {
 		JScrollPane logPanel = new JScrollPane();
 		logPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		logPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		logPanel.setBounds(10, 280, 344, 233);
+		logPanel.setBounds(10, 310, 344, 200);
 		contentPanel.add(logPanel);
 		
 		chatArea = new JTextArea();
@@ -56,9 +56,13 @@ public class ServerWindow extends JFrame {
 		logArea.setEditable(false);
 		logPanel.setViewportView(logArea);
 		
-		JLabel lblChat = new JLabel("Chat");
-		lblChat.setBounds(10, 11, 60, 14);
-		contentPanel.add(lblChat);
+		JLabel labelChat = new JLabel("Messages");
+		labelChat.setBounds(10, 11, 60, 18);
+		contentPanel.add(labelChat);
+		
+		JLabel labelLog = new JLabel("Log");
+		labelLog.setBounds(10, 280, 60, 18);
+		contentPanel.add(labelLog);
 	}
 	
 	public void setUp(){
