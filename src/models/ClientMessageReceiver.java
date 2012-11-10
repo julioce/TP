@@ -1,6 +1,5 @@
 package models;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
@@ -26,10 +25,7 @@ public class ClientMessageReceiver extends Thread {
 			client.getWindowController().getClientFrame().getChatArea().append(message.toString() + "\n");
 			communicationSocket.close();
 		} 
-		catch (IOException e){
-			e.printStackTrace();
-		} 
-		catch (ClassNotFoundException e){
+		catch (Exception e){
 			e.printStackTrace();
 		}
 

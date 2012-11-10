@@ -2,7 +2,6 @@ package models;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -12,7 +11,6 @@ import views.ClientWindow;
 
 
 import controllers.ClientController;
-
 
 public class Client extends Thread {
 
@@ -31,7 +29,7 @@ public class Client extends Thread {
 	public static void main(String[] args) {
 
 		ClientNicknamePopup clientNickPrompter = new ClientNicknamePopup();
-		String username = clientNickPrompter.promptForNick();
+		String username = clientNickPrompter.askNickname();
 		
 		ClientWindow clientFrame = new ClientWindow();
 		clientFrame.setUp(username);
@@ -94,13 +92,7 @@ public class Client extends Thread {
 			out.close();
 			stablishConnection.close();
 		}
-		catch (ConnectException e) {
-			e.printStackTrace();
-		}
-		catch (UnknownHostException e) {
-			e.printStackTrace();
-		} 
-		catch (IOException e)  {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

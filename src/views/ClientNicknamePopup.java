@@ -6,8 +6,8 @@ public class ClientNicknamePopup {
 	
 	private String nickname = "";
 	
-	public String promptForNick(){
-		while(nickname.equals("")){
+	public String askNickname(){
+		while(nickname.isEmpty()){
 			nickname = JOptionPane.showInputDialog("Insert your nickname");
 		}
 		
@@ -18,8 +18,8 @@ public class ClientNicknamePopup {
 		return nickname;
 	}
 
-	public void setNickname(String paramNickname) {
-		nickname = paramNickname;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 }

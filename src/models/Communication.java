@@ -1,9 +1,7 @@
 package models;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-
 
 public class Communication extends Thread {
 
@@ -35,10 +33,7 @@ public class Communication extends Thread {
 
 			communicationSocket.close();
 		} 
-		catch (IOException e){
-			e.printStackTrace();
-		} 
-		catch (ClassNotFoundException e){
+		catch (Exception e){
 			e.printStackTrace();
 		}
 
@@ -66,7 +61,7 @@ public class Communication extends Thread {
 				Message message = new Message(userToRemove, "Left the party...");
 				try {
 					server.broadcastMessage(message);
-				} catch (IOException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				server.getConnectedUsers().remove(userToRemove);
@@ -74,7 +69,5 @@ public class Communication extends Thread {
 				return;
 			}
 		}
-		
-		//recordLog("User not found, therefore not removed: " + userToRemove);
 	}
 }

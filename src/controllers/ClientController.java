@@ -22,7 +22,6 @@ public class ClientController implements ActionListener, WindowListener {
 		username = paramUsername;
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent arg0){
 		if(arg0.getActionCommand().equals(Constants.SEND)){
