@@ -19,6 +19,10 @@ public class Server extends Thread {
 	private Socket communicationSocket = null;
 	private ArrayList<User> connectedUsers = new ArrayList<User>();
 	
+	public Server(ServerController paramController){
+		windowController = paramController;
+	}
+	
 	public static void main(String[] args) {
 
 		ServerWindow serverFrame = new ServerWindow();
@@ -29,10 +33,6 @@ public class Server extends Thread {
 		Server server = new Server(windowController);
 		server.start();
 
-	}
-	
-	public Server(ServerController paramController){
-		windowController = paramController;
 	}
 	
 	@Override
