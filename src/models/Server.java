@@ -45,11 +45,10 @@ public class Server extends Thread {
 			recordLog("Server socket opened!");
 			
 			while(true){
-				recordLog("Waiting for client to connect...");
+				recordLog(Constants.WAITING);
 				communicationSocket = serverSocket.accept();
 				Communication conn = new Communication(communicationSocket, this);
 				conn.start();
-				
 			}
 			
 		}
@@ -58,7 +57,7 @@ public class Server extends Thread {
 			System.exit(1);
 		}
 		catch(IOException e){
-			recordLog("Exception while accepting the connection to a client");
+			recordLog(Constants.CONNECT_TO_SERVER);
 			e.printStackTrace();
 		}
 		finally{
@@ -73,22 +72,22 @@ public class Server extends Thread {
 			serverSocket.close();
 		}
 		catch (IOException e){
-			recordLog("Exception trying to close the sockets");
+			recordLog(Constants.CLOSING_SOCKETS);
 			e.printStackTrace();
 		}
 	}
 	
 	public void broadcastMessage(Message paramMessage) throws IOException{
-		recordLog("Message to broadcast: " + paramMessage.getMessageText());
-		recordLog("From IP: " + paramMessage.getSender().getIpHost());
-
-		recordLog("Retrieving connected users...");
+		
+		recordLog(Constants.MESSAGE_FROM + paramMessage.getSender().getUsername() 
+				+ " (" + paramMessage.getSender().getIpHost() 
+				+ ")\n" + paramMessage.getMessageText());
 
 		for (User user : connectedUsers) {
-			recordLog("For user: " + user.getUsername());
 			sendMessage(paramMessage, user);
 		}
-		
+
+		recordLog(Constants.TO_USERS + connectedUsers.toString());
 		recordChat(paramMessage.toString());
 	}
 
@@ -108,7 +107,7 @@ public class Server extends Thread {
 	}
 	
 	public void recordLog(String message){
-		windowController.getServerFrame().getLogArea().append(message + "\n");
+		windowController.getServerFrame().getLogArea().append(message + "\n-----------------------------\n");
 	}
 	
 	public void recordChat(String message){

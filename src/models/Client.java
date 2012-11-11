@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
+
+import javax.swing.JOptionPane;
 
 import views.ClientNicknamePopup;
 import views.ClientWindow;
@@ -14,7 +15,7 @@ import controllers.ClientController;
 
 public class Client extends Thread {
 
-	private ClientController clientWindowController = null;
+	private static ClientController clientWindowController = null;
 	private String username = null;
 	private int clientPort;
 	private ServerSocket serverSocket = null;
@@ -41,7 +42,7 @@ public class Client extends Thread {
 		int port = 1234;
 		
 		User user = new User("127.0.0.1", username, port);
-		Message message = new Message(user, "In the house!");
+		Message message = new Message(user, Constants.CLIENT_LOGIN);
 		
 		Client client = new Client(windowController, username, port);
 		client.start();
@@ -62,18 +63,17 @@ public class Client extends Thread {
 			}
 			
 		}
-		catch(IOException e) {  
-			System.err.println("Exception while accepting the connection to a client");
-			e.printStackTrace();
+		catch(IOException e) { 
+			JOptionPane.showMessageDialog(null, Constants.CONNECT_TO_CLIENT);
+			System.exit(0);
 		}
 		finally{
 			try{
 				communicationSocket.close();
 				serverSocket.close();
 			}
-			catch (IOException e){
-				System.err.println("Exception trying to close the sockets");
-				e.printStackTrace();
+			catch (IOException e) {
+				JOptionPane.showMessageDialog(null, Constants.CLOSING_SOCKETS);
 			}
 		}
 	}
@@ -93,34 +93,10 @@ public class Client extends Thread {
 			stablishConnection.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, Constants.CONNECT_TO_CLIENT);
+			System.exit(0);
 		}
 	}
-
-	@SuppressWarnings("unused")
-	private void sendMessage(Message message, User destination) {
-		Socket stablishConnection = null;
-		ObjectOutputStream out = null;
-
-		try {
-			stablishConnection = new Socket(destination.getIpHost(), Constants.SERVER_PORT);
-			out = new ObjectOutputStream(stablishConnection.getOutputStream());
-
-			out.writeObject(message);
-			out.flush();
-
-			out.close();
-			stablishConnection.close();
-		}
-		catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
 	
 	public ClientController getWindowController() {
 		return clientWindowController;
