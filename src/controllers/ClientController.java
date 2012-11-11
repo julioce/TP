@@ -15,10 +15,12 @@ import models.User;
 public class ClientController implements ActionListener, WindowListener {
 	
 	private ClientWindow clientFrame = null;
+	private String ipAddress = null;
 	private String username = null;
 	
-	public ClientController(ClientWindow paramClientFrame, String paramUsername) {
+	public ClientController(ClientWindow paramClientFrame, String paramipAddress, String paramUsername) {
 		clientFrame = paramClientFrame;
+		ipAddress = paramipAddress;
 		username = paramUsername;
 	}
 
@@ -27,7 +29,7 @@ public class ClientController implements ActionListener, WindowListener {
 		if(arg0.getActionCommand().equals(Constants.SEND) && !clientFrame.getMessageArea().getText().isEmpty()){
 			String message = clientFrame.getMessageArea().getText();
 
-			User sender = new User("127.0.0.1", username);
+			User sender = new User(ipAddress, username);
 			Message m = new Message(sender, message);
 			
 			Client.sendMessageToServer(m);
@@ -49,7 +51,7 @@ public class ClientController implements ActionListener, WindowListener {
 	public void windowClosing(WindowEvent arg0) {
 		String message = Constants.EXIT;
 
-		User sender = new User("127.0.0.1", username);
+		User sender = new User(ipAddress, username);
 		Message m = new Message(sender, message);
 		
 		Client.sendMessageToServer(m);

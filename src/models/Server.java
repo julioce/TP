@@ -57,7 +57,7 @@ public class Server extends Thread {
 			System.exit(1);
 		}
 		catch(IOException e){
-			recordLog(Constants.CONNECT_TO_SERVER);
+			recordLog(Constants.CONNECT_TO_CLIENTS);
 			e.printStackTrace();
 		}
 		finally{

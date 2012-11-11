@@ -28,7 +28,7 @@ public class Communication extends Thread {
 			
 			if(message.getMessageText().equals(Constants.EXIT)){
 				removeUser(message.getSender());
-				message.setMessageText("Left the party");
+				message.setMessageText(Constants.CLIENT_LOGOUT);
 			}
 			
 			server.broadcastMessage(message);
