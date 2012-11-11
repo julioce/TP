@@ -6,7 +6,9 @@ public class Constants {
 	public static final String SEND = "SEND_MESSAGE";
 	public static final String GREETING = "GREETING";
 	public static final String SERVER_IP = "127.0.0.1";
+	public static final String CLIENT_IP = "127.0.0.1";
 	public static final int SERVER_PORT = 4321;
+	public static final int CLIENT_PORT = 1234;
 	
 	//Server Messages
 	public static final String RUNNING = "Server running...";
@@ -19,6 +21,7 @@ public class Constants {
 	
 	//Client Messages
 	public static final String CLIENT_LOGIN = "Is connected to the server";
-	public static final String CLIENT_LOGOUT = "Has disconnected form the server";
+	public static final String CLIENT_LOGOUT = "Has disconnected from the server";
 	public static final String E_CONNECT_TO_SERVER = "Error while accepting the connection to a server";
+	public static final String E_GETTING_IP = "Error while getting current IP address";
 }

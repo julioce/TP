@@ -56,7 +56,7 @@ public class ClientWindow extends JFrame {
 		
 	}
 
-	public void setUp(String title) {
+	public void createWindow(String title) {
 		setTitle("Window chat - " + title);
 		setBounds(100, 100, 480, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

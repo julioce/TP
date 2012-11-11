@@ -65,7 +65,7 @@ public class ServerWindow extends JFrame {
 		contentPanel.add(labelLog);
 	}
 	
-	public void setUp(){
+	public void createWindow(){
 		setTitle("Server Chat");
 		setBounds(100, 100, 550, 550);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

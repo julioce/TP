@@ -3,13 +3,13 @@ package models;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-public class Communication extends Thread {
+public class Connection extends Thread {
 
 	private Server server = null;
 	private Socket communicationSocket = null;
 	private Message message = null;
 
-	public Communication(Socket paramCommunicationSocket, Server paramServer) {
+	public Connection(Socket paramCommunicationSocket, Server paramServer) {
 		communicationSocket = paramCommunicationSocket;
 		server = paramServer;
 	}
@@ -31,7 +31,7 @@ public class Communication extends Thread {
 				message.setMessageText(Constants.CLIENT_LOGOUT);
 			}
 			
-			server.broadcastMessage(message);
+			server.sendMessageToClients(message);
 			communicationSocket.close();
 		} 
 		catch (Exception e){

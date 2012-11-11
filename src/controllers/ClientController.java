@@ -4,7 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
+
+import views.ClientNicknamePopup;
 import views.ClientWindow;
 
 import models.Client;
@@ -22,6 +27,33 @@ public class ClientController implements ActionListener, WindowListener {
 		clientFrame = paramClientFrame;
 		ipAddress = paramipAddress;
 		username = paramUsername;
+	}
+	
+	public static void main(String[] args) {
+
+		ClientNicknamePopup clientNickPrompter = new ClientNicknamePopup();
+		String ipAddress = Constants.CLIENT_IP;
+		String username = clientNickPrompter.askNickname();
+		try {
+			ipAddress = InetAddress.getLocalHost().getHostAddress().toString();
+		} catch (UnknownHostException e) {
+			JOptionPane.showMessageDialog(null, Constants.E_GETTING_IP);
+			System.exit(1);
+		}
+		
+		ClientWindow clientFrame = new ClientWindow();
+		clientFrame.createWindow(username);
+
+		ClientController windowController = new ClientController(clientFrame, ipAddress, username);
+		clientFrame.configureListeners(windowController);
+		clientFrame.setupWindowListener(windowController);
+		
+		User user = new User(ipAddress, username, Constants.CLIENT_PORT);
+		Client client = new Client(windowController, username, Constants.CLIENT_PORT);
+		client.start();
+		
+		Message message = new Message(user, Constants.CLIENT_LOGIN);
+		Client.sendMessageToServer(message);
 	}
 
 	@Override

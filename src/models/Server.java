@@ -6,9 +6,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import views.ServerWindow;
-
-
 import controllers.ServerController;
 
 public class Server extends Thread {
@@ -20,18 +17,6 @@ public class Server extends Thread {
 	
 	public Server(ServerController paramController){
 		windowController = paramController;
-	}
-	
-	public static void main(String[] args) {
-
-		ServerWindow serverFrame = new ServerWindow();
-		serverFrame.setUp();
-
-		ServerController windowController = new ServerController(serverFrame);
-		
-		Server server = new Server(windowController);
-		server.start();
-
 	}
 	
 	@Override
@@ -46,7 +31,7 @@ public class Server extends Thread {
 			while(true){
 				recordLog(Constants.WAITING);
 				communicationSocket = serverSocket.accept();
-				Communication conn = new Communication(communicationSocket, this);
+				Connection conn = new Connection(communicationSocket, this);
 				conn.start();
 			}
 			
@@ -70,7 +55,7 @@ public class Server extends Thread {
 		}
 	}
 	
-	public void broadcastMessage(Message paramMessage) throws IOException{
+	public void sendMessageToClients(Message paramMessage) throws IOException{
 		
 		recordLog(Constants.MESSAGE_FROM + paramMessage.getSender().getUsername() 
 				+ " (" + paramMessage.getSender().getIpHost() 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import views.ServerWindow;
 
+import models.Server;
 import models.User;
 
 public class ServerController implements ActionListener{
@@ -14,6 +15,18 @@ public class ServerController implements ActionListener{
 	
 	public ServerController(ServerWindow paramServerFrame) {
 		serverFrame = paramServerFrame;
+	}
+	
+	public static void main(String[] args) {
+
+		ServerWindow serverFrame = new ServerWindow();
+		serverFrame.createWindow();
+
+		ServerController windowController = new ServerController(serverFrame);
+		
+		Server server = new Server(windowController);
+		server.start();
+
 	}
 
 	public void updateOnlineUsersList(List<User> onlineUsers) {
