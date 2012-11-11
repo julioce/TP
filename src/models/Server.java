@@ -2,7 +2,6 @@ package models;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -38,11 +37,11 @@ public class Server extends Thread {
 	@Override
 	public void run() {
 
-		recordLog("Server running!");
+		recordLog(Constants.RUNNING);
 		
 		try{
 			serverSocket = new ServerSocket(Constants.SERVER_PORT);  
-			recordLog("Server socket opened!");
+			recordLog(Constants.SOCKET_OPEN);
 			
 			while(true){
 				recordLog(Constants.WAITING);
@@ -52,16 +51,10 @@ public class Server extends Thread {
 			}
 			
 		}
-		catch(BindException e){
-			closeSockets();
-			System.exit(1);
-		}
 		catch(IOException e){
-			recordLog(Constants.CONNECT_TO_CLIENTS);
-			e.printStackTrace();
-		}
-		finally{
+			recordLog(Constants.E_CONNECT_TO_CLIENTS);
 			closeSockets();
+			e.printStackTrace();
 		}
 	}
 
@@ -72,7 +65,7 @@ public class Server extends Thread {
 			serverSocket.close();
 		}
 		catch (IOException e){
-			recordLog(Constants.CLOSING_SOCKETS);
+			recordLog(Constants.E_CLOSING_SOCKETS);
 			e.printStackTrace();
 		}
 	}

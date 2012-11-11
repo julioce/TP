@@ -35,7 +35,7 @@ public class ClientWindow extends JFrame {
 		contentPanel.add(sendButton);
 		
 		JScrollPane chatScroll = new JScrollPane();
-		chatScroll.setBounds(10, 11, 327, 288);
+		chatScroll.setBounds(10, 11, 440, 288);
 		chatScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		chatScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		contentPanel.add(chatScroll);

@@ -37,8 +37,8 @@ public class Client extends Thread {
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress().toString();
 		} catch (UnknownHostException e) {
-			JOptionPane.showMessageDialog(null, Constants.CONNECT_TO_SERVER);
-			System.exit(0);
+			JOptionPane.showMessageDialog(null, Constants.E_CONNECT_TO_SERVER);
+			System.exit(1);
 		}
 		
 		ClientWindow clientFrame = new ClientWindow();
@@ -73,8 +73,9 @@ public class Client extends Thread {
 			
 		}
 		catch(Exception e) { 
-			JOptionPane.showMessageDialog(null, Constants.CONNECT_TO_SERVER);
-			System.exit(0);
+			JOptionPane.showMessageDialog(null, Constants.E_CONNECT_TO_SERVER);
+			clientWindowController.windowClosing(null);
+			System.exit(1);
 		}
 		finally{
 			try{
@@ -82,7 +83,7 @@ public class Client extends Thread {
 				serverSocket.close();
 			}
 			catch (IOException e) {
-				JOptionPane.showMessageDialog(null, Constants.CLOSING_SOCKETS);
+				JOptionPane.showMessageDialog(null, Constants.E_CLOSING_SOCKETS);
 			}
 		}
 	}
@@ -102,8 +103,8 @@ public class Client extends Thread {
 			stablishConnection.close();
 		}
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, Constants.CONNECT_TO_SERVER);
-			System.exit(0);
+			JOptionPane.showMessageDialog(null, Constants.E_CONNECT_TO_SERVER);
+			System.exit(1);
 		}
 	}
 	
