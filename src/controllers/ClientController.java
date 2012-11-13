@@ -34,6 +34,7 @@ public class ClientController implements ActionListener, WindowListener {
 		ClientNicknamePopup clientNickPrompter = new ClientNicknamePopup();
 		String ipAddress = Constants.CLIENT_IP;
 		String username = clientNickPrompter.askNickname();
+		
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress().toString();
 		} catch (UnknownHostException e) {

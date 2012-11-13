@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -21,6 +23,15 @@ public class ServerWindow extends JFrame {
 	private JTextArea logArea = null;
 	
 	public ServerWindow() {
+		String nativeLF = UIManager.getSystemLookAndFeelClassName();
+		
+		try {
+			UIManager.setLookAndFeel(nativeLF);
+		}
+		catch (InstantiationException e) {}
+		catch (ClassNotFoundException e) {}
+		catch (UnsupportedLookAndFeelException e) {}
+		catch (IllegalAccessException e) {}
 		
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

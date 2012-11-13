@@ -12,17 +12,19 @@ public class Server extends Thread {
 	
 	private ServerController windowController = null;
 	private ServerSocket serverSocket = null;
+	private String ipAddress = null;
 	private Socket communicationSocket = null;
 	private ArrayList<User> connectedUsers = new ArrayList<User>();
 	
-	public Server(ServerController paramController){
+	public Server(ServerController paramController, String paramipAddress){
 		windowController = paramController;
+		ipAddress = paramipAddress;
 	}
 	
 	@Override
 	public void run() {
 
-		recordLog(Constants.RUNNING);
+		recordLog(Constants.RUNNING + ipAddress);
 		
 		try{
 			serverSocket = new ServerSocket(Constants.SERVER_PORT);  
@@ -39,7 +41,6 @@ public class Server extends Thread {
 		catch(IOException e){
 			recordLog(Constants.E_CONNECT_TO_CLIENTS);
 			closeSockets();
-			e.printStackTrace();
 		}
 	}
 
@@ -51,11 +52,10 @@ public class Server extends Thread {
 		}
 		catch (IOException e){
 			recordLog(Constants.E_CLOSING_SOCKETS);
-			e.printStackTrace();
 		}
 	}
 	
-	public void sendMessageToClients(Message paramMessage) throws IOException{
+	public void sendMessageToClients(Message paramMessage) {
 		
 		recordLog(Constants.MESSAGE_FROM + paramMessage.getSender().getUsername() 
 				+ " (" + paramMessage.getSender().getIpHost() 
@@ -69,19 +69,24 @@ public class Server extends Thread {
 		recordChat(paramMessage.toString());
 	}
 
-	private static void sendMessage(Message message, User destination) throws IOException {
+	private void sendMessage(Message message, User destination) {
 		
 		Socket stablishConnection = null;
 		ObjectOutputStream out = null;
 
-		stablishConnection = new Socket(destination.getIpHost(), destination.getUserPort());
-		out = new ObjectOutputStream(stablishConnection.getOutputStream());
+		try {
+			stablishConnection = new Socket(destination.getIpHost(), destination.getUserPort());
+			out = new ObjectOutputStream(stablishConnection.getOutputStream());
 
-		out.writeObject(message);
-		out.flush();
+			out.writeObject(message);
+			out.flush();
 
-		out.close();
-		stablishConnection.close();
+			out.close();
+			stablishConnection.close();
+		} catch (Exception e) {
+			recordLog(Constants.E_SENDING_TO_CLIENTS + message);
+		}
+		
 	}
 	
 	public void recordLog(String message){

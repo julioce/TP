@@ -11,10 +11,11 @@ public class Constants {
 	public static final int CLIENT_PORT = 1234;
 	
 	//Server Messages
-	public static final String RUNNING = "Server running...";
+	public static final String RUNNING = "Server running on ";
 	public static final String SOCKET_OPEN = "Server socket opened...";
 	public static final String WAITING = "Server waiting for client connection...";
 	public static final String E_CONNECT_TO_CLIENTS = "Error while accepting the connection to a client";
+	public static final String E_SENDING_TO_CLIENTS = "Error while sending message to a client";
 	public static final String E_CLOSING_SOCKETS = "Error trying to close the sockets";
 	public static final String MESSAGE_FROM = "Message from: ";
 	public static final String TO_USERS = "To users: ";

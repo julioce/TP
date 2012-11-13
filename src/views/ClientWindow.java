@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 import models.Constants;
@@ -23,6 +25,15 @@ public class ClientWindow extends JFrame {
 	private JTextArea chatArea = null;
 	
 	public ClientWindow() {
+		String nativeLF = UIManager.getSystemLookAndFeelClassName();
+
+		try {
+			UIManager.setLookAndFeel(nativeLF);
+		}
+		catch (InstantiationException e) {}
+		catch (ClassNotFoundException e) {}
+		catch (UnsupportedLookAndFeelException e) {}
+		catch (IllegalAccessException e) {}
 		
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -35,7 +46,7 @@ public class ClientWindow extends JFrame {
 		contentPanel.add(sendButton);
 		
 		JScrollPane chatScroll = new JScrollPane();
-		chatScroll.setBounds(10, 11, 440, 288);
+		chatScroll.setBounds(10, 11, 440, 308);
 		chatScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		chatScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		contentPanel.add(chatScroll);
