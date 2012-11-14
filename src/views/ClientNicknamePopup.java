@@ -7,6 +7,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class ClientNicknamePopup {
 	
 	private String nickname = "";
+	private String serverAddress = "";
 	
 	public ClientNicknamePopup(){
 		String nativeLF = UIManager.getSystemLookAndFeelClassName();
@@ -34,6 +35,14 @@ public class ClientNicknamePopup {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public String askServerAddress() {
+		while(serverAddress.isEmpty()){
+			serverAddress = JOptionPane.showInputDialog("What's the server IP Address?");
+		}
+		
+		return serverAddress;
 	}
 
 }

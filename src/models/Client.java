@@ -59,12 +59,12 @@ public class Client extends Thread {
 		}
 	}
 	
-	public static void sendMessageToServer(Message message) {
+	public static void sendMessageToServer(String serverAddress, Message message) {
 		Socket stablishConnection = null;
 		ObjectOutputStream out = null;
 
 		try {
-			stablishConnection = new Socket(Constants.SERVER_IP, Constants.SERVER_PORT);
+			stablishConnection = new Socket(serverAddress, Constants.SERVER_PORT);
 			out = new ObjectOutputStream(stablishConnection.getOutputStream());
 
 			out.writeObject(message);

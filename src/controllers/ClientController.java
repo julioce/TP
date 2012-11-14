@@ -22,11 +22,13 @@ public class ClientController implements ActionListener, WindowListener {
 	private ClientWindow clientFrame = null;
 	private String ipAddress = null;
 	private String username = null;
+	private String serverAddress = null;
 	
-	public ClientController(ClientWindow paramClientFrame, String paramipAddress, String paramUsername) {
+	public ClientController(ClientWindow paramClientFrame, String paramipAddress, String paramUsername, String paramserverAddress) {
 		clientFrame = paramClientFrame;
 		ipAddress = paramipAddress;
 		username = paramUsername;
+		serverAddress = paramserverAddress;
 	}
 	
 	public static void main(String[] args) {
@@ -34,6 +36,7 @@ public class ClientController implements ActionListener, WindowListener {
 		ClientNicknamePopup clientNickPrompter = new ClientNicknamePopup();
 		String ipAddress = Constants.CLIENT_IP;
 		String username = clientNickPrompter.askNickname();
+		String serverAddress = clientNickPrompter.askServerAddress();
 		
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress().toString();
@@ -45,7 +48,7 @@ public class ClientController implements ActionListener, WindowListener {
 		ClientWindow clientFrame = new ClientWindow();
 		clientFrame.createWindow(username);
 
-		ClientController windowController = new ClientController(clientFrame, ipAddress, username);
+		ClientController windowController = new ClientController(clientFrame, ipAddress, username, serverAddress);
 		clientFrame.configureListeners(windowController);
 		clientFrame.setupWindowListener(windowController);
 		
@@ -54,7 +57,7 @@ public class ClientController implements ActionListener, WindowListener {
 		client.start();
 		
 		Message message = new Message(user, Constants.CLIENT_LOGIN);
-		Client.sendMessageToServer(message);
+		Client.sendMessageToServer(serverAddress, message);
 	}
 
 	@Override
@@ -65,7 +68,7 @@ public class ClientController implements ActionListener, WindowListener {
 			User sender = new User(ipAddress, username);
 			Message m = new Message(sender, message);
 			
-			Client.sendMessageToServer(m);
+			Client.sendMessageToServer(serverAddress, m);
 			
 			clientFrame.getMessageArea().setText("");
 		}
@@ -87,7 +90,7 @@ public class ClientController implements ActionListener, WindowListener {
 		User sender = new User(ipAddress, username);
 		Message m = new Message(sender, message);
 		
-		Client.sendMessageToServer(m);
+		Client.sendMessageToServer(serverAddress, m);
 	}
 
 	@Override
