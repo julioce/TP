@@ -18,8 +18,8 @@ public class ServerController implements ActionListener{
 
 	private ServerWindow serverFrame = null;
 	
-	public ServerController(ServerWindow paramServerFrame) {
-		serverFrame = paramServerFrame;
+	public ServerController(ServerWindow frame) {
+		serverFrame = frame;
 	}
 	
 	public static void main(String[] args) {

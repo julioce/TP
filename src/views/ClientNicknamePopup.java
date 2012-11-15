@@ -4,6 +4,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import models.Constants;
+
 public class ClientNicknamePopup {
 	
 	private String nickname = "";
@@ -23,7 +25,7 @@ public class ClientNicknamePopup {
 	
 	public String askNickname(){
 		while(nickname.isEmpty()){
-			nickname = JOptionPane.showInputDialog("What's your nickname?");
+			nickname = JOptionPane.showInputDialog(Constants.ASK_NICKNAME);
 		}
 		
 		return nickname;
@@ -39,7 +41,7 @@ public class ClientNicknamePopup {
 
 	public String askServerAddress() {
 		while(serverAddress.isEmpty()){
-			serverAddress = JOptionPane.showInputDialog("What's the server IP Address?");
+			serverAddress = JOptionPane.showInputDialog(Constants.ASK_SERVER);
 		}
 		
 		return serverAddress;

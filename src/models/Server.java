@@ -1,6 +1,7 @@
 package models;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,33 +13,47 @@ public class Server extends Thread {
 	
 	private ServerController windowController = null;
 	private ServerSocket serverSocket = null;
-	private String ipAddress = null;
 	private Socket communicationSocket = null;
 	private ArrayList<User> connectedUsers = new ArrayList<User>();
 	
 	public Server(ServerController paramController, String paramipAddress){
 		windowController = paramController;
-		ipAddress = paramipAddress;
 	}
 	
 	@Override
 	public void run() {
 
-		recordLog(Constants.RUNNING + ipAddress);
+		recordLog(Constants.RUNNING);
 		
 		try{
+			// Tries to open the port
 			serverSocket = new ServerSocket(Constants.SERVER_PORT);  
 			recordLog(Constants.SOCKET_OPEN);
+			Message message;
 			
 			while(true){
-				recordLog(Constants.WAITING);
+				// Accepts the connection
 				communicationSocket = serverSocket.accept();
-				Connection conn = new Connection(communicationSocket, this);
-				conn.start();
+				recordLog(Constants.WAITING);
+				// Reads the stream and append to client
+				ObjectInputStream in = new ObjectInputStream(communicationSocket.getInputStream());
+				// Parses message to an Message object type
+				message = (Message) in.readObject();
+				// Verifies if message comes from a new client
+				checkForSenderInServerList(message.getSender());
+				// Verifies if message is a Exit message
+				if(message.getMessageText().equals(Constants.EXIT)){
+					removeUser(message.getSender());
+					message.setMessageText(Constants.CLIENT_LOGOUT);
+				}
+				// Send message to clients
+				sendMessageToClients(message);
+				// Closes the socket
+				communicationSocket.close();
 			}
 			
 		}
-		catch(IOException e){
+		catch(Exception e){
 			recordLog(Constants.E_CONNECT_TO_CLIENTS);
 			closeSockets();
 		}
@@ -55,62 +70,75 @@ public class Server extends Thread {
 		}
 	}
 	
-	public void sendMessageToClients(Message paramMessage) {
+	private void sendMessageToClients(Message message) {
 		
-		recordLog(Constants.MESSAGE_FROM + paramMessage.getSender().getUsername() 
-				+ " (" + paramMessage.getSender().getIpHost() 
-				+ ")\n" + paramMessage.getMessageText());
+		recordLog(Constants.MESSAGE_FROM + message.getSender().getUserNickname() + " (" + message.getSender().getUserIp() + ")\n" + message.getMessageText());
 
+		// For each user listed
 		for (User user : connectedUsers) {
-			sendMessage(paramMessage, user);
+			// Sends Message
+			sendMessage(user, message);
 		}
 
+		// Records the message in Log and Chat
 		recordLog(Constants.TO_USERS + connectedUsers.toString());
-		recordChat(paramMessage.toString());
+		recordChat(message.toString());
 	}
 
-	private void sendMessage(Message message, User destination) {
+	private void sendMessage(User user, Message message) {
 		
-		Socket stablishConnection = null;
+		Socket connection = null;
 		ObjectOutputStream out = null;
 
 		try {
-			stablishConnection = new Socket(destination.getIpHost(), destination.getUserPort());
-			out = new ObjectOutputStream(stablishConnection.getOutputStream());
-
+			// Creates the output stream
+			connection = new Socket(user.getUserIp(), user.getUserPort());
+			out = new ObjectOutputStream(connection.getOutputStream());
+			
+			// Writes on the stream
 			out.writeObject(message);
 			out.flush();
-
+			
+			// Closes stream and connection
 			out.close();
-			stablishConnection.close();
+			connection.close();
 		} catch (Exception e) {
 			recordLog(Constants.E_SENDING_TO_CLIENTS + message);
 		}
 		
 	}
 	
-	public void recordLog(String message){
+	private void checkForSenderInServerList(User sender){
+		if(!getConnectedUsers().contains(sender)){
+			getConnectedUsers().add(sender);
+			getWindowController().updateOnlineUsersList(getConnectedUsers());
+		}
+	}
+	
+	private void removeUser(User userToRemove){
+		for(User user : getConnectedUsers()){
+			if(user.equals(userToRemove)){
+				getConnectedUsers().remove(userToRemove);
+				getWindowController().updateOnlineUsersList(getConnectedUsers());
+				return;
+			}
+		}
+	}
+	
+	private void recordLog(String message){
 		windowController.getServerFrame().getLogArea().append(message + "\n-----------------------------\n");
 	}
 	
-	public void recordChat(String message){
+	private void recordChat(String message){
 		windowController.getServerFrame().getChatArea().append(message + "\n");
 	}
 	
-	public ArrayList<User> getConnectedUsers() {
+	private ArrayList<User> getConnectedUsers() {
 		return connectedUsers;
 	}
 
-	public void setConnectedUsers(ArrayList<User> paramConnectedUsers) {
-		connectedUsers = paramConnectedUsers;
-	}
-
-	public ServerController getWindowController() {
+	private ServerController getWindowController() {
 		return windowController;
-	}
-
-	public void setWindowController(ServerController paramWindowController) {
-		windowController = paramWindowController;
 	}
 
 }

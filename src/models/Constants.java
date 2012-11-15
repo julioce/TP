@@ -15,12 +15,14 @@ public class Constants {
 	public static final String SOCKET_OPEN = "Server socket opened...";
 	public static final String WAITING = "Server waiting for client connection...";
 	public static final String E_CONNECT_TO_CLIENTS = "Error while accepting the connection to a client";
-	public static final String E_SENDING_TO_CLIENTS = "Error while sending message to a client";
+	public static final String E_SENDING_TO_CLIENTS = "Error while sending message to a client ";
 	public static final String E_CLOSING_SOCKETS = "Error trying to close the sockets";
 	public static final String MESSAGE_FROM = "Message from: ";
 	public static final String TO_USERS = "To users: ";
 	
 	//Client Messages
+	public static final String ASK_NICKNAME = "What's your nickname?";
+	public static final String ASK_SERVER = "What's the server IP Address?";
 	public static final String CLIENT_LOGIN = "Is connected to the server";
 	public static final String CLIENT_LOGOUT = "Has disconnected from the server";
 	public static final String E_CONNECT_TO_SERVER = "Error while accepting the connection to a server";
