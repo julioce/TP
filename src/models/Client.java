@@ -37,7 +37,7 @@ public class Client extends Thread {
 				ObjectInputStream in = new ObjectInputStream(communicationSocket.getInputStream());
 				// Parses message to an Message object type
 				message = (Message) in.readObject();
-				// Parses the message and append to text area.
+				// Parses the message and append to text area
 				clientWindowController.getClientFrame().getChatArea().append(message.toString() + "\n");
 				// Closes the socket
 				communicationSocket.close();

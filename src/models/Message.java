@@ -13,13 +13,9 @@ public class Message implements Serializable{
 		messageText = paramMessageText;
 	}
 	
-	@Override
 	public String toString(){
 		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(sender.getUserNickname());
-		stringBuffer.append(": ");
-		stringBuffer.append(messageText);
-		
+		stringBuffer.append(sender.getUserNickname() + ": " + messageText);
 		return stringBuffer.toString();
 	}
 	

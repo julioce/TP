@@ -58,7 +58,7 @@ public class ClientController implements ActionListener, WindowListener {
 		// Creates the User
 		User user = new User(ipAddress, username, Constants.CLIENT_PORT);
 		Client client = new Client(windowController, Constants.CLIENT_PORT);
-		// Starts the Thread
+		// Starts the Client thread
 		client.start();
 		
 		// Sends initial message to server

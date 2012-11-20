@@ -40,7 +40,7 @@ public class ClientWindow extends JFrame {
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
 		
-		sendButton = new JButton("Send");
+		sendButton = new JButton(Constants.CLIENT_SEND_BUTTON);
 		sendButton.setBounds(365, 352, 89, 57);
 		sendButton.setActionCommand(Constants.SEND);
 		contentPanel.add(sendButton);
@@ -68,7 +68,7 @@ public class ClientWindow extends JFrame {
 	}
 
 	public void createWindow(String title) {
-		setTitle("Window chat - " + title);
+		setTitle(Constants.CLIENT_WINDOW + title);
 		setBounds(100, 100, 480, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);

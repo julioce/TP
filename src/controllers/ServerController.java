@@ -1,7 +1,5 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -14,7 +12,7 @@ import models.Constants;
 import models.Server;
 import models.User;
 
-public class ServerController implements ActionListener{
+public class ServerController {
 
 	private ServerWindow serverFrame = null;
 	
@@ -23,11 +21,12 @@ public class ServerController implements ActionListener{
 	}
 	
 	public static void main(String[] args) {
-
+		// Creates the View
 		ServerWindow serverFrame = new ServerWindow();
 		serverFrame.createWindow();
-		String ipAddress = Constants.SERVER_IP;
 		
+		// Sets local IP address
+		String ipAddress = Constants.SERVER_IP;
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress().toString();
 		} catch (UnknownHostException e) {
@@ -35,8 +34,8 @@ public class ServerController implements ActionListener{
 		}
 
 		ServerController windowController = new ServerController(serverFrame);
-		
 		Server server = new Server(windowController, ipAddress);
+		// Starts the Client thread
 		server.start();
 
 	}
@@ -54,8 +53,5 @@ public class ServerController implements ActionListener{
 	public void setServerFrame(ServerWindow paramServerFrame) {
 		serverFrame = paramServerFrame;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) { }
 	
 }

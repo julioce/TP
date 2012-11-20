@@ -39,7 +39,6 @@ public class User implements Serializable{
 		this.userNickname = userNickname;
 	}
 
-	@Override
 	public boolean equals(Object obj) {
 		
 		if(!(obj instanceof User)){
@@ -58,14 +57,9 @@ public class User implements Serializable{
 		}
 	}
 	
-	@Override
-	public String toString() {
+	public String toString(){
 		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(userNickname);
-		stringBuffer.append(" (");
-		stringBuffer.append(userIp);
-		stringBuffer.append(")");
-		
+		stringBuffer.append(userNickname + " (" + userIp + ")");
 		return stringBuffer.toString();
 	}
 	

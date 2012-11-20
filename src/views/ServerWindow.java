@@ -14,6 +14,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import models.Constants;
+
 public class ServerWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -43,7 +45,7 @@ public class ServerWindow extends JFrame {
 		onlineUsersJList.setBorder(new LineBorder(new Color(0, 0, 0)));
 		contentPanel.add(onlineUsersJList);
 		
-		JLabel lblOnlineUsers = new JLabel("Connected");
+		JLabel lblOnlineUsers = new JLabel(Constants.CONNETED);
 		lblOnlineUsers.setBounds(410, 11, 108, 18);
 		contentPanel.add(lblOnlineUsers);
 		
@@ -67,17 +69,17 @@ public class ServerWindow extends JFrame {
 		logArea.setEditable(false);
 		logPanel.setViewportView(logArea);
 		
-		JLabel labelChat = new JLabel("Messages");
+		JLabel labelChat = new JLabel(Constants.MESSAGES);
 		labelChat.setBounds(10, 11, 120, 18);
 		contentPanel.add(labelChat);
 		
-		JLabel labelLog = new JLabel("Log");
-		labelLog.setBounds(10, 280, 60, 18);
+		JLabel labelLog = new JLabel(Constants.LOG);
+		labelLog.setBounds(10, 285, 60, 18);
 		contentPanel.add(labelLog);
 	}
 	
 	public void createWindow(){
-		setTitle("Server Chat");
+		setTitle(Constants.SERVER_WINDOW);
 		setBounds(100, 100, 550, 550);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
