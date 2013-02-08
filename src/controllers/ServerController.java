@@ -35,7 +35,7 @@ public class ServerController {
 
 		ServerController windowController = new ServerController(serverFrame);
 		Server server = new Server(windowController, ipAddress);
-		// Starts the Client thread
+		// Starts the Server thread
 		server.start();
 
 	}
