@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
       }
    }
    else{
-      printf("Erro na inicializacao: %s <remote server Port> \n", argv[0]);
+      printf("Erro na inicializacao: %s <Porta do comutador> \n", argv[0]);
    }
    return 0;
 }

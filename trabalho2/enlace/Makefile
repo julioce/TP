@@ -1,4 +1,4 @@
-all: link comutador1 rm-obj chmod
+all: link comutador1 rm-obj
 fisica: fisica.c
 	g++ -c fisica.c
 enlace: enlace.cpp
@@ -13,5 +13,3 @@ link-comutador: comutador1 fisica enlace
 	g++ -o comutador comutador.o fisica.o enlace.o -Xlinker -zmuldefs
 rm-obj: 
 	rm fisica.o enlace.o enlace-host.o
-chmod: host
-	chmod 777 host
