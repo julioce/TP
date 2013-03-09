@@ -6,7 +6,7 @@ Série de trabalhos para a disciplina de Teleprocessamento e Redes - DCC UFRJ
 Trabalho 1 - Chat Cliente-Servidor
 -----------
 
-  Parâmetros de chamada: N/A
+	Parâmetros de chamada: N/A
 	Arquivos auxiliares utilizados: N/A
 	Programa auxiliar: N/A
 	Forma de uso:
@@ -16,29 +16,28 @@ Trabalho 1 - Chat Cliente-Servidor
 	
 Trabalho 2 - Emulador da camada de Enlace
 -----------
-  Compilação
-    $ cd enlace
-    $ make
+	Compilação
+	$ cd enlace
+	$ make
 
-  Comutador
+	Comutador
 	Parâmetros de chamada: ./comutador <Porta do comutador>
-  Arquivos auxiliares utilizados: N/A
+	Arquivos auxiliares utilizados: N/A
 	Programa auxiliar: N/A
 	Forma de uso:
 		1. Execução do programa com os parâmetros corretos
 		2. Exibição das ações do comutador e dos hosts
 
-  Host
-  Parâmetros de chamada: ./host <IP da maquina do comutador> <Porta da maquina do comutador> <MAC
-address ficticio>
-  Arquivos auxiliares utilizados: N/A
+	Host
+	Parâmetros de chamada: ./host <IP da maquina do comutador> <Porta da maquina do comutador> <MAC address ficticio>
+	Arquivos auxiliares utilizados: N/A
 	Programa auxiliar: ./comutador
 	Forma de uso:
 		1. Garantir as permissões para a execuução do arquivo host com $ chmod 777 ./host
-    2. Execução do programa com os parâmetros corretos
+		2. Execução do programa com os parâmetros corretos
 		3. Definir a taxa de erro da camada com valor [0-1]
-    4. Escrever a mensagem a ser enviada.
-    5. Definir o endereço MAC ficticio de destino da mensagem. 225 define envio por broadcast.
+		4. Escrever a mensagem a ser enviada.
+		5. Definir o endereço MAC ficticio de destino da mensagem. 225 define envio por broadcast.
 
 
 Este README tem apenas como função analisar brevemente o uso/utilidade de cada programa assim como o seu funcionamento básico. Mais detalhes sobre o uso de cada um deve ser feito através da depuração do código fonte ou pela leitura dos relatórios de cada trabalho.
